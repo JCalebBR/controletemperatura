@@ -1,6 +1,16 @@
 name: lint
 
-on: [push, pull_request, pull_request_review, pull_request_review_comment]
+on: 
+  push:
+    paths-ignore:
+      - '**.js'
+      - '**.html'
+      - '**.py'
+  pull_request:
+    paths-ignore:
+      - '**.js'
+      - '**.html'
+      - '**.py'
 jobs:
   clang-tidy:
     name: clang-tidy

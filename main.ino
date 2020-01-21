@@ -21,15 +21,11 @@ int AC_pin = 13; //D7
 int zero_cross_pin = 12; //D6
 double dim = 0;
 
-uint32_t intervalo = 1000;
-uint32_t tempo_ultimo = 0;
-
 AsyncWebServer server(80);
 
 String readTemp() {
   sensors.requestTemperatures();
   temp = sensors.getTempCByIndex(0);
-  Serial.println(temp);
   if (temp != -127.00) {
     return String(temp);
   }
@@ -41,7 +37,8 @@ ICACHE_RAM_ATTR void zero_cross_detect() {
 
 ICACHE_RAM_ATTR void dim_check() {
   if(zero_cross == 1) {
-    double ndelay = (1.0 - dim) * 7330.0;
+    double ndelay = (1.0 - dim) * 6330.0;
+    delay(1);
     delayMicroseconds(ndelay);
     digitalWrite(AC_pin, HIGH);
     delayMicroseconds(100);
@@ -68,9 +65,7 @@ void setup() {
   timer1_attachInterrupt(dim_check);
   timer1_enable(TIM_DIV16, TIM_EDGE, TIM_LOOP);
   timer1_write(325);
-  
-  //Serial.println("Tell me why");
-  
+    
   WiFi.begin(ssid, senha);
   Serial.print("Conectando");
   while (WiFi.status() != WL_CONNECTED) {
@@ -81,7 +76,6 @@ void setup() {
   Serial.print("Conectado! ");
   Serial.println(WiFi.localIP());
 
-  // Route for root / web page
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/index.html");
   });

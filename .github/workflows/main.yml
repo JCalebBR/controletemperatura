@@ -1,11 +1,6 @@
 name: lint
 
 on: 
-  push:
-    paths-ignore:
-      - '**.js'
-      - '**.html'
-      - '**.py'
   pull_request:
     paths-ignore:
       - '**.js'

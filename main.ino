@@ -64,7 +64,7 @@ ICACHE_RAM_ATTR void dim_check() {
     //Um ciclo em 60hz equivale a aproximadamente 16,66ms, ja que o triac dispara
     //em ambos os semiciclos (8,33ms) e o pulso de cruzamento de zero tem largura
     //de aproximadamente 1ms, o momento de disparo dependendo da potencia (%) desejada
-    //pode ser calculado por ((100 - POTENCIA)/100) * 7330 ou (1.0 - dim) * 73330
+    //pode ser calculado por ((100 - POTENCIA)/100) * 7330 ou (1.0 - dim) * 7330
     double ndelay = (1.0 - dim) * 6330.0;
     delayMicroseconds(ndelay);
     delay(1);

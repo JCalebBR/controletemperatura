@@ -2,9 +2,10 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-    <script src="highcharts.js"></script>
+    <title>Controle de Potência WiFi</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta charset='UTF-8'>
+    <script src='highcharts.js'></script>
     <style>
         body {
             min-width: 310px;
@@ -15,19 +16,27 @@
         
         h2 {
             font-family: Arial;
-            font-size: 2.5rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        h3 {
+            font-family: Arial;
+            font-size: 1rem;
             text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <h2>Controle de potência WiFi</h2>
-    <div id="chart-temperature" class="container"></div>
+    <h2>Gráfico de Temperatura</h2>
+    <div id='grafico' class='container'></div>
     <br>
-    <div id="angulo" class="container">
-        <br> Potência desejada:
-        <form action='/ang'>
+    <div id='angulo' class='container'>
+        <br>
+        <br>
+        <h3>Potência desejada:</h3>
+        <form action='/ang' style='text-align:center'>
             <input type='text' name='angulo' id='angulo'><br>
             <input type='submit' name='salvar' value='Enviar'>
             <br>
@@ -42,10 +51,10 @@
     });
     var chartT = new Highcharts.Chart({
         chart: {
-            renderTo: 'chart-temperature'
+            renderTo: 'grafico'
         },
         title: {
-            text: 'Temperatura (DS18B20)'
+            text: ''
         },
         series: [{
             showInLegend: false,
@@ -63,6 +72,9 @@
             }
         },
         xAxis: {
+            title: {
+                text: 'Tempo (hh:mm:ss)'
+            },
             type: 'datetime',
             dateTimeLabelFormats: {
                 second: '%H:%M:%S'
@@ -90,7 +102,7 @@
                 }
             }
         };
-        xhttp.open("GET", "/temp", true);
+        xhttp.open('GET', '/temp', true);
         xhttp.send();
     }, 2000);
 </script>
